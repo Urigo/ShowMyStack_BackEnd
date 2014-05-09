@@ -1,5 +1,5 @@
 /**
- * Created by asafdav on 3/4/14.
+ * Created by dotansimha
  */
 var Hapi = require('hapi');
 var Joi = require('joi');

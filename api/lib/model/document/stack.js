@@ -1,5 +1,5 @@
 /**
- * Created by dotansimha\
+ * Created by dotansimha
  */
 var Hapi = require('hapi');
 var Joi = require('joi');
