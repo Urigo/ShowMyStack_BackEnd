@@ -1,6 +1,7 @@
 // Load modules
 var UserCtrl = require('./../controller/user');
 var AuthCtrl = require('./../controller/auth');
+var StacksCtrl = require('./../controller/stack');
 
 // API Server Endpoints
 exports.endpoints = [
@@ -28,5 +29,12 @@ exports.endpoints = [
         method: 'GET',
         path: '/users',
         config: UserCtrl.profile
+    },
+
+    // Stacks routes
+    {
+        method: 'POST',
+        path: '/stacks/add',
+        config: StacksCtrl.create
     }
 ];

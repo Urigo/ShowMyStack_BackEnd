@@ -38,7 +38,7 @@ var config = {
         "test": {
             host: '127.0.0.1',
             port: 27017,
-            db: 'capsuling_test',
+            db: 'showmystack_test',
             username: '',
             password: ''
         },
@@ -52,14 +52,14 @@ var config = {
         "production": {
             host: '127.0.0.1',
             port: 27017,
-            db: 'capsuling_prod',
+            db: 'showmystack_prod',
             username: '',
             password: ''
         },
         "$default": {
             host: '127.0.0.1',
             port: 27017,
-            db: 'capsuling_dev',
+            db: 'showmystack_dev',
             username: '',
             password: ''
         }
