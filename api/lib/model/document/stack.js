@@ -23,8 +23,36 @@ var StackSchema = new Schema({
             unique: true
         }
     },
-    languages: [String],
-    thirdParties: [String],
+    languages: [{
+        lang: {
+            type: Schema.Types.ObjectId,
+            ref: 'Language',
+            required: true,
+            index: true
+        },
+        frameworks: [{
+            framework: {
+                type: Schema.Types.ObjectId,
+                ref: 'Framework',
+                index: true
+            },
+            frameworkVersion: {
+                type: Schema.Types.ObjectId,
+                index: true
+            },
+            extensions: [{
+                extension: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Extension',
+                    index: true
+                },
+                version: {
+                    type: Schema.Types.ObjectId,
+                    index: true
+                }
+            }]
+        }]
+    }],
     website: String
 });
 
@@ -34,8 +62,7 @@ StackSchema.statics.removeInternalFieldsSelect = "";
 StackSchema.statics.ValidationSchema = {
     title: Joi.string().required(),
     githubUrl: Joi.string().required(),
-    thirdParties: Joi.array(),
-    languages: Joi.array(),
+    languages: Joi.any(),
     website: Joi.string()
 };
 

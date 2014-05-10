@@ -30,6 +30,20 @@ exports.findById = function(id, cb) {
         .exec(cb);
 };
 
+
+/**
+ * Get all the categories that related to language
+ * @param langId
+ * @param cb
+ */
+exports.getAllByLanguageId = function(langId, cb) {
+    var query = {
+        languages: langId
+    };
+
+    Category.find(query, Category.removeInternalFieldsSelect).exec(cb);
+};
+
 /**
  * Get all the categories
  * @param cb

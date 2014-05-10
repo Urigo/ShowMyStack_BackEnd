@@ -40,6 +40,10 @@ exports.endpoints = [
         method: 'POST',
         path: '/stacks/add',
         config: StacksCtrl.create
+    }, {
+        method: 'GET',
+        path: '/stacks/all',
+        config: StacksCtrl.getAllStacks
     },
 
     // Langs routes
@@ -84,6 +88,10 @@ exports.endpoints = [
         method: 'GET',
         path: '/extension/all',
         config: ExtensionCtrl.getAll
-    },
+    }, {
+        method: 'GET',
+        path: '/extension/getByFramework/{id}/andLanguage/{lang}',
+        config: ExtensionCtrl.getExtensionsByFrameworkAndLanguage
+    }
 
 ];

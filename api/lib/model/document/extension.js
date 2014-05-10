@@ -52,7 +52,7 @@ ExtensionSchema.statics.ValidationSchema = {
 // Format the entity for the api, remove restricted fields
 if (!ExtensionSchema.options.toObject) ExtensionSchema.options.toObject = {};
 ExtensionSchema.options.toObject.transform = function(doc, ret, options) {
-    //  delete ret.users;
+
 };
 
 module.exports = Mongoose.model('Extension', ExtensionSchema);
