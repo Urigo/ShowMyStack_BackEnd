@@ -35,26 +35,12 @@ var config = {
     },
     database: {
         "$filter": "env",
-        "test": {
-            host: '127.0.0.1',
-            port: 27017,
-            db: 'showmystack_test',
-            username: '',
-            password: ''
-        },
-        "staging": {
-            host: 'ds031877.mongolab.com',
-            port: 31877,
-            db: 'heroku_app23362146',
-            username: 'capsuling',
-            password: 'capsuling'
-        },
         "production": {
-            host: '127.0.0.1',
-            port: 27017,
-            db: 'showmystack_prod',
-            username: '',
-            password: ''
+            host: 'dbh56.mongolab.com',
+            port: 27567,
+            db: 'showmystack',
+            username: 'showmystack',
+            password: 'uridotan'
         },
         "$default": {
             host: '127.0.0.1',
