@@ -67,28 +67,32 @@ exports.getAll = {
 
                 var responseLangs = [];
 
-                var done = _.after(langs.length, function() {
-                    reply(responseLangs);
-                });
-
-                _.forEach(langs, function(lang) {
-                    FrameworkCollection.getAllByLanguageId(lang._id, function(err, fws) {
-                        if (err) return reply({
-                            status: 'error',
-                            message: err
-                        }).code(500);
-
-                        var langObj = lang.toObject();
-
-                        _.assign(langObj, {
-                            frameworks: fws
-                        });
-
-                        responseLangs.push(langObj);
-
-                        done();
+                if (langs.length > 0) {
+                    var done = _.after(langs.length, function() {
+                        reply(responseLangs);
                     });
-                });
+
+                    _.forEach(langs, function(lang) {
+                        FrameworkCollection.getAllByLanguageId(lang._id, function(err, fws) {
+                            if (err) return reply({
+                                status: 'error',
+                                message: err
+                            }).code(500);
+
+                            var langObj = lang.toObject();
+
+                            _.assign(langObj, {
+                                frameworks: fws
+                            });
+
+                            responseLangs.push(langObj);
+
+                            done();
+                        });
+                    });
+                } else {
+                    reply(responseLangs);
+                }
             }
         );
     }

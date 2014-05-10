@@ -68,8 +68,6 @@ exports.getAllStacks = {
                 message: err
             }).code(500);
 
-            stacks = stacks.toObject();
-
             reply(stacks);
         });
     }
