@@ -92,3 +92,5 @@ store.load(config);
 module.exports = store.get('/', {
     env: process.env.NODE_ENV
 });
+
+console.log("ENV:" + process.env.NODE_ENV);
