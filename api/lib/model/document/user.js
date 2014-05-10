@@ -25,7 +25,6 @@ var UserRoleTypes = {
     VIEWER: 'VIEWER'
 };
 
-// Create the role hierarchy array - TODO - Encapsulate in a helper
 var RoleHierarchy = {};
 RoleHierarchy[UserRoleTypes.SUPER_ADMIN] = [UserRoleTypes.SUPER_ADMIN, UserRoleTypes.ADMIN, UserRoleTypes.EDITOR, UserRoleTypes.VIEWER];
 RoleHierarchy[UserRoleTypes.ADMIN] = [UserRoleTypes.ADMIN, UserRoleTypes.EDITOR, UserRoleTypes.VIEWER];

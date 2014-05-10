@@ -9,8 +9,6 @@ var timestamps = require('mongoose-timestamp');
 var _ = require('lodash');
 var Stack = require('./stack');
 var AuthHelper = require('./../../helper/auth');
-var ThirdPartySchema = require('./subDocument/thirdParty').Schema;
-var ThirdPartyValidation = require('./subDocument/thirdParty').Validation;
 var JoiHelper = require('../../helper/joi');
 
 var StackSchema = new Schema({
