@@ -35,6 +35,24 @@ exports.getAll = function(cb) {
 };
 
 /**
+ * Updates the provided stack
+ * @param id
+ * @param stack
+ * @param cb
+ */
+exports.update = function(id, stack, cb) {
+    // Make sure to remove the current _id
+    delete stack._id;
+
+    Stack.update({
+        _id: id
+    }, stack, function(err, count, raw) {
+        stack._id = id;
+        cb(err, stack);
+    });
+};
+
+/**
  * Find the wanted stack by id
  * @param id
  * @param cb

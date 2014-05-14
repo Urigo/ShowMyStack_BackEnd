@@ -49,6 +49,69 @@ exports.create = {
     }
 };
 
+
+/**
+ * Updates a stack.
+ *
+ * @type {{tags: string[], description: string, validate: {path: {id: *}, payload: *}, auth: string, pre: {method: Function, assign: string}[], handler: handler}}
+ */
+exports.editStack = {
+    tags: ['api', 'stack'],
+    description: 'Updates a stack',
+    notes: 'Valid response: <br/>' +
+        '<pre><code>' + '</code></pre>',
+    validate: {
+        path: {
+            id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required() // Valid Mongodb's ObjectID
+        },
+        payload: Stack.ValidationSchema
+    },
+    auth: 'passport-bearer',
+    handler: function(request, reply) {
+        StackCollection.update(request.params.id, request.payload, function(err, stack) {
+            if (err) return reply({
+                status: 'error',
+                message: err
+            }).code(500);
+            if (!stack) return reply({
+                status: 'error',
+                message: 'Not found'
+            }).code(404);
+
+            reply(stack).code(200); // Created or saved
+        });
+    }
+};
+
+
+
+
+exports.getById = {
+    tags: ['api', 'stack'],
+    description: 'Returns a stack by id',
+    notes: 'Valid response: <br/>' + '<pre><code>' + '</code></pre>',
+    validate: {
+        path: {
+            id: Joi.string().regex(JoiHelper.MongoIDRegex).required(), // Valid Mongodb's ObjectID
+        }
+    },
+    auth: 'passport-bearer',
+    pre: [{
+        method: AuthHelper.rolePrerequsites(User.RoleTypes.EDITOR),
+        assign: 'role'
+    }],
+    handler: function(request, reply) {
+        StackCollection.findById(request.params.id, function(err, stack) {
+            if (err) return reply({
+                status: 'error',
+                message: err
+            }).code(500);
+
+            reply(stack);
+        });
+    }
+};
+
 exports.getAllStacks = {
     tags: ['api', 'stack'],
     description: 'Returns a list of all stacks',
