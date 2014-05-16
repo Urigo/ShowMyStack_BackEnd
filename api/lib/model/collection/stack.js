@@ -62,3 +62,17 @@ exports.findById = function(id, cb) {
         .select(Stack.removeInternalFieldsSelect)
         .exec(cb);
 };
+
+/**
+ * Find the wanted stack by id and populate the objects
+ * @param id
+ * @param cb
+ */
+exports.findByIdAndPopulate = function(id, cb) {
+	Stack.findById(id)
+		.select(Stack.removeInternalFieldsSelect)
+		.populate('languages.lang')
+		.populate('languages.frameworks.framework')
+		.populate('languages.frameworks.extensions.extension')
+		.exec(cb);
+};

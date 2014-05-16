@@ -49,6 +49,10 @@ exports.endpoints = [
         path: '/stacks/getById/{id}',
         config: StacksCtrl.getById
     }, {
+        method: 'GET',
+        path: '/stacks/getStack/{id}',
+        config: StacksCtrl.getStack
+    }, {
         method: 'PUT',
         path: '/stacks/edit/{id}',
         config: StacksCtrl.editStack

@@ -83,6 +83,34 @@ exports.editStack = {
     }
 };
 
+exports.getStack = {
+	tags: ['api', 'stack'],
+	description: 'Returns a stack by id with populated values',
+	notes: 'Valid response: <br/>' + '<pre><code>' + '</code></pre>',
+	validate: {
+		path: {
+			id: Joi.string().regex(JoiHelper.MongoIDRegex).required(), // Valid Mongodb's ObjectID
+		}
+	},
+	auth: 'passport-bearer',
+	pre: [
+		{
+			method: AuthHelper.rolePrerequsites(User.RoleTypes.EDITOR),
+			assign: 'role'
+		}
+	],
+	handler: function (request, reply) {
+		StackCollection.findByIdAndPopulate(request.params.id, function (err, stack) {
+			if (err) return reply({
+				status: 'error',
+				message: err
+			}).code(500);
+
+			reply(stack);
+		});
+	}
+};
+
 
 exports.getById = {
     tags: ['api', 'stack'],
