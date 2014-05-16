@@ -16,13 +16,6 @@ var StackSchema = new Schema({
         type: String,
         required: true
     },
-    githubUrl: {
-        type: String,
-        required: true,
-        index: {
-            unique: true
-        }
-    },
     languages: [{
 		_id: false,
         lang: {
@@ -56,17 +49,18 @@ var StackSchema = new Schema({
             }]
         }]
     }],
-    website: String
+    website: String,
+	githubUrl: String
 });
 
 StackSchema.plugin(timestamps);
-StackSchema.statics.removeInternalFieldsSelect = "";
+StackSchema.statics.removeInternalFieldsSelect = '';
 
 StackSchema.statics.ValidationSchema = {
     title: Joi.string().required(),
-    githubUrl: Joi.string().required(),
     languages: Joi.any(),
-    website: Joi.string()
+    website: Joi.any().optional().allow(''),
+	githubUrl: Joi.any().optional().allow('')
 };
 
 // Format the entity for the api, remove restricted fields
