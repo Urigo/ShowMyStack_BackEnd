@@ -24,6 +24,7 @@ var StackSchema = new Schema({
         }
     },
     languages: [{
+		_id: false,
         lang: {
             type: Schema.Types.ObjectId,
             ref: 'Language',
@@ -31,6 +32,7 @@ var StackSchema = new Schema({
             index: true
         },
         frameworks: [{
+			_id: false,
             framework: {
                 type: Schema.Types.ObjectId,
                 ref: 'Framework',
@@ -41,6 +43,7 @@ var StackSchema = new Schema({
                 index: true
             },
             extensions: [{
+				_id: false,
                 extension: {
                     type: Schema.Types.ObjectId,
                     ref: 'Extension',
