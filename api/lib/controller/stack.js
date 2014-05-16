@@ -84,8 +84,6 @@ exports.editStack = {
 };
 
 
-
-
 exports.getById = {
     tags: ['api', 'stack'],
     description: 'Returns a stack by id',
