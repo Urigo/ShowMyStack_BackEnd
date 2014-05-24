@@ -24,7 +24,7 @@ exports.create = {
     },
     auth: 'passport-bearer',
     pre: [{
-        method: AuthHelper.rolePrerequsites(User.RoleTypes.ADMIN),
+        method: AuthHelper.rolePrerequsites(User.RoleTypes.EDITOR),
         assign: 'role'
     }, {
         method: AuthHelper.checkRoles,
