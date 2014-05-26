@@ -50,19 +50,13 @@ exports.getAll = {
     tags: ['api', 'tool'],
     description: 'Returns a list of all tools.',
     notes: 'Valid response: <br/>' + '<pre><code>' + '</code></pre>',
-	validate: {
-		path: {
-			langId: Joi.string().regex(JoiHelper.MongoIDRegex).required(), // Valid Mongodb's ObjectID
-			catId: Joi.string().regex(JoiHelper.MongoIDRegex).required(), // Valid Mongodb's ObjectID
-		}
-	},
     auth: 'passport-bearer',
     pre: [{
         method: AuthHelper.rolePrerequsites(User.RoleTypes.ADMIN),
         assign: 'role'
     }],
     handler: function(request, reply) {
-        ToolCollection.getByLanguageAndCategory(request.params.langId, request.params.catId,
+        ToolCollection.getAll(
             function(err, tools) {
                 if (err) return reply({
                     status: 'error',
@@ -79,14 +73,19 @@ exports.getByLanguageAndCategory = {
     tags: ['api', 'tool'],
     description: 'Returns a list of tools that related to a category and a language',
     notes: 'Valid response: <br/>' + '<pre><code>' + '</code></pre>',
-    validate: {},
+	validate: {
+		path: {
+			langId: Joi.string().regex(JoiHelper.MongoIDRegex).required(), // Valid Mongodb's ObjectID
+			catId: Joi.string().regex(JoiHelper.MongoIDRegex).required(), // Valid Mongodb's ObjectID
+		}
+	},
     auth: 'passport-bearer',
     pre: [{
         method: AuthHelper.rolePrerequsites(User.RoleTypes.ADMIN),
         assign: 'role'
     }],
     handler: function(request, reply) {
-        ToolCollection.getAll(
+        ToolCollection.getByLanguageAndCategory(request.params.langId, request.params.catId,
             function(err, tools) {
                 if (err) return reply({
                     status: 'error',
