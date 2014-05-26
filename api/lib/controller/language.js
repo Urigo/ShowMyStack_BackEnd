@@ -10,8 +10,6 @@ var Language = require('../model/document/language');
 var AuthHelper = require('../helper/auth');
 var User = require('./../model/document/user');
 var UserCollection = require('./../model/collection/user');
-var Framework = require('./../model/document/framework');
-var FrameworkCollection = require('./../model/collection/framework');
 var _ = require('lodash');
 
 /**
@@ -20,7 +18,7 @@ var _ = require('lodash');
  */
 exports.create = {
     tags: ['api', 'language'],
-    description: 'Creates a program language',
+    description: 'Creates a programming language',
     validate: {
         payload: Language.ValidationSchema
     },
@@ -65,34 +63,7 @@ exports.getAll = {
                     message: err
                 }).code(500);
 
-                var responseLangs = [];
-
-                if (langs.length > 0) {
-                    var done = _.after(langs.length, function() {
-                        reply(responseLangs);
-                    });
-
-                    _.forEach(langs, function(lang) {
-                        FrameworkCollection.getAllByLanguageId(lang._id, function(err, fws) {
-                            if (err) return reply({
-                                status: 'error',
-                                message: err
-                            }).code(500);
-
-                            var langObj = lang.toObject();
-
-                            _.assign(langObj, {
-                                frameworks: fws
-                            });
-
-                            responseLangs.push(langObj);
-
-                            done();
-                        });
-                    });
-                } else {
-                    reply(responseLangs);
-                }
+                reply(langs);
             }
         );
     }

@@ -3,9 +3,8 @@ var UserCtrl = require('./../controller/user');
 var AuthCtrl = require('./../controller/auth');
 var StacksCtrl = require('./../controller/stack');
 var LanguagesCtrl = require('./../controller/language');
-var FrameworksCtrl = require('./../controller/framework');
 var CategoryCtrl = require('./../controller/category');
-var ExtensionCtrl = require('./../controller/extension');
+var ToolCtrl = require('./../controller/tool');
 
 // API Server Endpoints
 exports.endpoints = [
@@ -69,17 +68,6 @@ exports.endpoints = [
         config: LanguagesCtrl.getAll
     },
 
-    // Framworkes routes
-    {
-        method: 'POST',
-        path: '/framework/add',
-        config: FrameworksCtrl.create
-    }, {
-        method: 'GET',
-        path: '/framework/all',
-        config: FrameworksCtrl.getAll
-    },
-
     // Categories routes
     {
         method: 'POST',
@@ -91,19 +79,19 @@ exports.endpoints = [
         config: CategoryCtrl.getAll
     },
 
-    // Extensions routes
+    // Tools routes
     {
         method: 'POST',
-        path: '/extension/add',
-        config: ExtensionCtrl.create
+        path: '/tool/add',
+        config: ToolCtrl.create
     }, {
         method: 'GET',
-        path: '/extension/all',
-        config: ExtensionCtrl.getAll
+        path: '/tool/all',
+        config: ToolCtrl.getAll
     }, {
-        method: 'GET',
-        path: '/extension/getByFramework/{id}/andLanguage/{lang}',
-        config: ExtensionCtrl.getExtensionsByFrameworkAndLanguage
-    }
+		method: 'GET',
+		path: '/tool/language/{langId}/category/{catId}',
+		config: ToolCtrl.getByLanguageAndCategory
+	}
 
 ];

@@ -7,25 +7,28 @@ var Mongoose = require('mongoose');
 var Schema = Mongoose.Schema;
 var timestamps = require('mongoose-timestamp');
 var _ = require('lodash');
-var Framework = require('./framework');
-var JoiHelper = require('../../helper/joi');
+var Tool = require('./tool');
 var Language = require('./language');
 
-var FrameworkSchema = new Schema({
-    frameworkName: {
+var ToolSchema = new Schema({
+    toolName: {
         type: String,
         required: true,
         index: {
             unique: true
         }
     },
-    icon: String,
     githubUrl: String,
     versions: [{
         versionNumber: String,
         ghUrl: String
     }],
-    languageId: {
+    categories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
+    }],
+	language: {
         type: Schema.Types.ObjectId,
         ref: 'Language',
         required: true,
@@ -33,21 +36,21 @@ var FrameworkSchema = new Schema({
     }
 });
 
-FrameworkSchema.plugin(timestamps);
-FrameworkSchema.statics.removeInternalFieldsSelect = "frameworkName icon githubUrl versions languageId";
+ToolSchema.plugin(timestamps);
+ToolSchema.statics.removeInternalFieldsSelect = "";
 
-FrameworkSchema.statics.ValidationSchema = {
-    frameworkName: Joi.string().required(),
-    icon: Joi.string(),
+ToolSchema.statics.ValidationSchema = {
+	toolName: Joi.string().required(),
     githubUrl: Joi.string(),
     versions: Joi.array(),
-    languageId: Joi.string()
+	categories: Joi.array(),
+	language: Joi.any()
 };
 
 // Format the entity for the api, remove restricted fields
-if (!FrameworkSchema.options.toObject) FrameworkSchema.options.toObject = {};
-FrameworkSchema.options.toObject.transform = function(doc, ret, options) {
-    //  delete ret.users;
+if (!ToolSchema.options.toObject) ToolSchema.options.toObject = {};
+ToolSchema.options.toObject.transform = function(doc, ret, options) {
+
 };
 
-module.exports = Mongoose.model('Framework', FrameworkSchema);
+module.exports = Mongoose.model('Tool', ToolSchema);
