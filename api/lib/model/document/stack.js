@@ -24,29 +24,17 @@ var StackSchema = new Schema({
             required: true,
             index: true
         },
-        frameworks: [{
+        tools: [{
 			_id: false,
-            framework: {
+            tool: {
                 type: Schema.Types.ObjectId,
-                ref: 'Framework',
+                ref: 'Tool',
                 index: true
             },
-            frameworkVersion: {
+            version: {
                 type: Schema.Types.ObjectId,
                 index: true
-            },
-            extensions: [{
-				_id: false,
-                extension: {
-                    type: Schema.Types.ObjectId,
-                    ref: 'Extension',
-                    index: true
-                },
-                version: {
-                    type: Schema.Types.ObjectId,
-                    index: true
-                }
-            }]
+            }
         }]
     }],
     website: String,

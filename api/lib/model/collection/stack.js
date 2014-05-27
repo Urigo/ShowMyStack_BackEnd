@@ -29,8 +29,7 @@ exports.getAll = function(cb) {
     Stack.find({})
         .select(Stack.removeInternalFieldsSelect)
         .populate('languages.lang')
-        .populate('languages.frameworks.framework')
-        .populate('languages.frameworks.extensions.extension')
+        .populate('languages.tools.tool')
         .exec(cb);
 };
 
@@ -72,7 +71,6 @@ exports.findByIdAndPopulate = function(id, cb) {
 	Stack.findById(id)
 		.select(Stack.removeInternalFieldsSelect)
 		.populate('languages.lang')
-		.populate('languages.frameworks.framework')
-		.populate('languages.frameworks.extensions.extension')
+		.populate('languages.tools.tool')
 		.exec(cb);
 };
