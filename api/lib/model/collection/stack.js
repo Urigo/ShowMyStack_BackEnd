@@ -28,8 +28,6 @@ exports.create = function(stack) {
 exports.getAll = function(cb) {
     Stack.find({})
         .select(Stack.removeInternalFieldsSelect)
-        .populate('languages.lang')
-        .populate('languages.tools.tool')
         .exec(cb);
 };
 
