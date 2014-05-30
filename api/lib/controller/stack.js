@@ -36,7 +36,7 @@ exports.create = {
     }],
     handler: function(request, reply) {
         // Create a new stack
-        var stack = StackCollection.create(request.payload);
+        var stack = StackCollection.create(request.payload, request.auth.credentials);
 
         // Save and return the created user
         stack.save(function(err, newStack) {
@@ -68,7 +68,7 @@ exports.editStack = {
     },
     auth: 'passport-bearer',
     handler: function(request, reply) {
-        StackCollection.update(request.params.id, request.payload, function(err, stack) {
+        StackCollection.update(request.params.id, request.payload, request.auth.credentials, function(err, stack) {
             if (err) return reply({
                 status: 'error',
                 message: err

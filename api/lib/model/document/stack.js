@@ -10,12 +10,26 @@ var _ = require('lodash');
 var Stack = require('./stack');
 var AuthHelper = require('./../../helper/auth');
 var JoiHelper = require('../../helper/joi');
+var UserSchema = require('./user').Schema;
+var UserValidation = require('./user').Validation;
 
 var StackSchema = new Schema({
     title: {
         type: String,
         required: true
     },
+	createdBy: {
+		type: Schema.Types.ObjectId,
+		ref: 'ShowMyStackUser',
+		required: true,
+		index: true
+	},
+	updatedBy: {
+		type: Schema.Types.ObjectId,
+		ref: 'ShowMyStackUser',
+		required: true,
+		index: true
+	},
     languages: [{
 		_id: false,
         lang: {

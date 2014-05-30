@@ -6,6 +6,7 @@
 var Q = require('q');
 var Stack = require('./../document/stack');
 var Language = require('./../document/language');
+var User = require('./../document/user');
 var AuthHelper = require('../../helper/auth');
 
 // Define the internal object
@@ -16,7 +17,10 @@ var internals = {};
  * @param stack
  * @returns {Stack}
  */
-exports.create = function(stack) {
+exports.create = function(stack, user) {
+	stack.createdBy = user._id;
+	stack.updatedBy = user._id;
+
     return new Stack(stack);
 };
 
@@ -27,7 +31,9 @@ exports.create = function(stack) {
  */
 exports.getAll = function(cb) {
     Stack.find({})
-        .select(Stack.removeInternalFieldsSelect)
+		.select(Stack.removeInternalFieldsSelect)
+		.populate('createdBy', '-password -verified -active -role -access_tokens')
+		.populate('updatedBy')
         .exec(cb);
 };
 
@@ -37,9 +43,10 @@ exports.getAll = function(cb) {
  * @param stack
  * @param cb
  */
-exports.update = function(id, stack, cb) {
+exports.update = function(id, stack, user, cb) {
     // Make sure to remove the current _id
     delete stack._id;
+	stack.updatedBy = user._id;
 
     Stack.update({
         _id: id
@@ -47,28 +54,4 @@ exports.update = function(id, stack, cb) {
         stack._id = id;
         cb(err, stack);
     });
-};
-
-/**
- * Find the wanted stack by id
- * @param id
- * @param cb
- */
-exports.findById = function(id, cb) {
-    Stack.findById(id)
-        .select(Stack.removeInternalFieldsSelect)
-        .exec(cb);
-};
-
-/**
- * Find the wanted stack by id and populate the objects
- * @param id
- * @param cb
- */
-exports.findByIdAndPopulate = function(id, cb) {
-	Stack.findById(id)
-		.select(Stack.removeInternalFieldsSelect)
-		.populate('languages.lang')
-		.populate('languages.tools.tool')
-		.exec(cb);
 };
