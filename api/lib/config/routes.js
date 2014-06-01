@@ -5,6 +5,7 @@ var StacksCtrl = require('./../controller/stack');
 var LanguagesCtrl = require('./../controller/language');
 var CategoryCtrl = require('./../controller/category');
 var ToolCtrl = require('./../controller/tool');
+var GitHubCtrl = require('./../controller/github');
 
 // API Server Endpoints
 exports.endpoints = [
@@ -92,6 +93,18 @@ exports.endpoints = [
 		method: 'GET',
 		path: '/tool/language/{langId}/category/{catId}',
 		config: ToolCtrl.getByLanguageAndCategory
+	},
+
+	// GitHub routes
+	{
+		method: 'GET',
+		path: '/github/repo/{user}/{repo}',
+		config: GitHubCtrl.getGithubInfo
+	},
+	{
+		method: 'GET',
+		path: '/github/readme/{user}/{repo}',
+		config: GitHubCtrl.getReadme
 	}
 
 ];
