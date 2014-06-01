@@ -6,6 +6,7 @@ var LanguagesCtrl = require('./../controller/language');
 var CategoryCtrl = require('./../controller/category');
 var ToolCtrl = require('./../controller/tool');
 var GitHubCtrl = require('./../controller/github');
+var BowerCtrl = require('./../controller/bower');
 
 // API Server Endpoints
 exports.endpoints = [
@@ -105,6 +106,23 @@ exports.endpoints = [
 		method: 'GET',
 		path: '/github/readme/{user}/{repo}',
 		config: GitHubCtrl.getReadme
+	},
+	{
+		method: 'GET',
+		path: '/github/tags/{user}/{repo}',
+		config: GitHubCtrl.getGithubTags
+	},
+	{
+		method: 'POST',
+		path: '/github/file',
+		config: GitHubCtrl.getFileInfo
+	},
+
+	// Bower routes
+	{
+		method: 'GET',
+		path: '/bower/{package}',
+		config: BowerCtrl.getBowerInfo
 	}
 
 ];

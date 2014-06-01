@@ -48,3 +48,14 @@ exports.getByLanguageAndCategory = function(langId, catId, cb) {
 
     Tool.find(query, Tool.removeInternalFieldsSelect).exec(cb);
 };
+
+/**
+ * Check if tools exits by gh url
+ * @param ghUrl
+ * @param cb
+ */
+exports.getToolByGhUrl = function(ghUrl, cb) {
+	var query = {githubUrl: ghUrl};
+
+	Tool.find(query, Tool.removeInternalFieldsSelect).exec(cb);
+};

@@ -42,6 +42,35 @@ exports.getGithubInfo = {
 };
 
 /**
+ * Gets tags on github repository
+ */
+exports.getGithubTags = {
+	tags: ['api', 'github'],
+	description: 'Gets tags on github repository',
+	auth: 'passport-bearer',
+	pre: [{
+		method: AuthHelper.rolePrerequsites(User.RoleTypes.EDITOR),
+		assign: 'role'
+	}, {
+		method: AuthHelper.checkRoles,
+		assign: 'checkRoles'
+	}],
+	handler: function(request, reply) {
+		GitHubHelper.getTagList(request.params.user, request.params.repo, function(err, info) {
+			if (err)
+			{
+				return reply({
+					status: 'error',
+					message: err
+				}).code(500);
+			}
+
+			reply(info);
+		});
+	}
+};
+
+/**
  * Gets readme file on github repository
  */
 exports.getReadme = {
@@ -57,6 +86,35 @@ exports.getReadme = {
 	}],
 	handler: function(request, reply) {
 		GitHubHelper.getReadme(request.params.user, request.params.repo, function(err, info) {
+			if (err)
+			{
+				return reply({
+					status: 'error',
+					message: err
+				}).code(500);
+			}
+
+			reply(info);
+		});
+	}
+};
+
+/**
+ * Gets file from github repository
+ */
+exports.getFileInfo = {
+	tags: ['api', 'github'],
+	description: 'Gets file from github repository',
+	auth: 'passport-bearer',
+	pre: [{
+		method: AuthHelper.rolePrerequsites(User.RoleTypes.EDITOR),
+		assign: 'role'
+	}, {
+		method: AuthHelper.checkRoles,
+		assign: 'checkRoles'
+	}],
+	handler: function(request, reply) {
+		GitHubHelper.getFileInfo(request.payload.user, request.payload.repo, request.payload.filename, function(err, info) {
 			if (err)
 			{
 				return reply({

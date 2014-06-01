@@ -43,3 +43,14 @@ exports.getReadme = function(repoUser, repoName, cb)
 		cb(err, res);
 	});
 };
+
+exports.getFileInfo = function(repoUser, repoName, fileName, cb)
+{
+	github.repos.getContent({
+		user: repoUser,
+		repo: repoName,
+		path: fileName
+	}, function(err, res) {
+		cb(err, res);
+	});
+};
