@@ -55,6 +55,7 @@
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^0.1.6",
     "q": "^1.0.1",
+    "request": "^2.36.0",
     "travelogue": "https://github.com/cjihrig/travelogue/tarball/56c9261b052b381b6f86b9f4c939bbed7d68816b",
     "uid2": "0.0.3",
     "yar": "^2.1.0"
