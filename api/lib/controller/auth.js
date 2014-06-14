@@ -118,10 +118,20 @@ exports.register = {
     handler: function(request, reply) {
         var user = UserCollection.create(request.payload);
         user.save(function(err, user) {
-            if (err) return reply({
-                status: 'error',
-                message: err
-            }).code(500);
+            if (err) {
+				if (err.code === 11000)
+				{
+					return reply({
+						status: 'error',
+						message: 'This e-mail already exists in ShowMyStack!'
+					}).code(500);
+				}
+
+				return reply({
+					status: 'error',
+					message: err
+				}).code(500);
+			}
 
             reply(user.toObject());
         });
