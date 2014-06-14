@@ -13,7 +13,6 @@ var Language = require('./language');
 
 var CategorySchema = new Schema({
     categoryName: {
-
         type: String,
         required: true,
         index: {
@@ -25,15 +24,20 @@ var CategorySchema = new Schema({
         ref: 'Language',
         required: true,
         index: true
-    }]
+    }],
+	parentCategory:{
+		type: Schema.Types.ObjectId,
+		ref: 'Category'
+	}
 });
 
 CategorySchema.plugin(timestamps);
-CategorySchema.statics.removeInternalFieldsSelect = "categoryName languages";
+CategorySchema.statics.removeInternalFieldsSelect = 'categoryName languages parentCategory';
 
 CategorySchema.statics.ValidationSchema = {
     categoryName: Joi.string().required(),
-    languages: Joi.array()
+    languages: Joi.array(),
+	parentCategory: Joi.any().allow(null)
 };
 
 // Format the entity for the api, remove restricted fields
