@@ -75,7 +75,11 @@ exports.endpoints = [
         method: 'POST',
         path: '/category/add',
         config: CategoryCtrl.create
-    }, {
+    },{
+		method: 'PUT',
+		path: '/category/edit/{id}',
+		config: CategoryCtrl.editCategory
+	}, {
         method: 'GET',
         path: '/category/all',
         config: CategoryCtrl.getAll

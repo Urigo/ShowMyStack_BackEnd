@@ -1,6 +1,8 @@
 /**
  * Created by dotansimha
  */
+'use strict';
+
 var Hapi = require('hapi');
 var Joi = require('joi');
 
@@ -42,6 +44,37 @@ exports.create = {
             reply(newCat.toObject());
         });
     }
+};
+
+/**
+ * Updates a category.
+ **/
+exports.editCategory = {
+	tags: ['api', 'category'],
+	description: 'Updates a category',
+	notes: 'Valid response: <br/>' +
+		'<pre><code>' + '</code></pre>',
+	validate: {
+		path: {
+			id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required() // Valid Mongodb's ObjectID
+		},
+		payload: Category.ValidationSchema
+	},
+	auth: 'passport-bearer',
+	handler: function(request, reply) {
+		CategoryCollection.update(request.params.id, request.payload, function(err, category) {
+			if (err) return reply({
+				status: 'error',
+				message: err
+			}).code(500);
+			if (!category) return reply({
+				status: 'error',
+				message: 'Not found'
+			}).code(404);
+
+			reply(category).code(200); // Created or saved
+		});
+	}
 };
 
 exports.getAll = {

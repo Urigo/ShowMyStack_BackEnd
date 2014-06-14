@@ -1,6 +1,7 @@
 /**
  * Created by dotansimha
  */
+'use strict';
 
 // Require
 var Q = require('q');
@@ -17,6 +18,25 @@ var internals = {};
  */
 exports.create = function(cat) {
     return new Category(cat);
+};
+
+/**
+ * Update category
+ * @param id
+ * @param cat
+ * @param cb
+ * @returns {Category}
+ */
+exports.update = function(id, cat, cb) {
+	// Make sure to remove the current _id
+	delete cat._id;
+
+	Category.update({
+		_id: id
+	}, cat, function(err, count, raw) {
+		cat._id = id;
+		cb(err, cat);
+	});
 };
 
 /**
