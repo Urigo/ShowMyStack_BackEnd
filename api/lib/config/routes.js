@@ -27,13 +27,15 @@ exports.endpoints = [
         method: 'POST',
         path: '/auth/fbRegister',
         config: AuthCtrl.fbRegister
+    }, {
+        method: 'POST',
+        path: '/auth/ghLogin',
+        config: AuthCtrl.ghLogin
     },
-
-    // User routes
     {
         method: 'GET',
         path: '/users',
-        config: UserCtrl.profile
+        config: AuthCtrl.getProfile
     },
 
     // Stacks routes

@@ -1,12 +1,54 @@
 /**
  * Created by asafdav on 2/26/14.
  */
+'use strict';
 var Hapi = require('hapi');
 var Joi = require('joi');
 var UserCollection = require('../model/collection/user');
 
+
 // Declare internals
 var internals = {};
+
+
+exports.getProfile = {
+	tags: ['api', 'auth'],
+	description: 'Gets user info',
+	notes: 'Valid response: <br/>' +
+		'<pre><code>' + '</code></pre>',
+	auth: 'passport-bearer',
+	handler: function(request, reply) {
+			reply(request.auth.credentials).code(200); // Created or saved
+	}
+};
+
+/**
+ * Updates a github access token.
+ *
+ * @type {{tags: string[], description: string, validate: {path: {id: *}, payload: *}, auth: string, pre: {method: Function, assign: string}[], handler: handler}}
+ */
+exports.ghLogin = {
+	tags: ['api', 'github', 'auth'],
+	description: 'Updates a github access token',
+	notes: 'Valid response: <br/>' +
+		'<pre><code>' + '</code></pre>',
+	auth: 'passport-bearer',
+	handler: function(request, reply) {
+		UserCollection.updateGhToken(request.payload, request.auth.credentials, function(err, user) {
+			if (err) return reply({
+				status: 'error',
+				message: err
+			}).code(500);
+			if (!user) return reply({
+				status: 'error',
+				message: 'Not found'
+			}).code(404);
+
+			reply(user).code(200); // Created or saved
+		});
+	}
+};
+
 
 /**
  * Login handler

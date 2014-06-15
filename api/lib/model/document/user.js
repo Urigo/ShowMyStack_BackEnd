@@ -78,6 +78,7 @@ var UserSchema = new Schema({
         enum: _.values(UserRoleTypes),
         default: UserRoleTypes.EDITOR
     },
+	githubToken: String,
     access_tokens: [{
         token: {
             type: String,

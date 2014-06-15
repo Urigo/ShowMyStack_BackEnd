@@ -1,6 +1,9 @@
 /**
  * Created by asafdav on 3/1/14.
  */
+
+'use strict';
+
 // Require modules
 var User = require('./../document/user');
 
@@ -82,3 +85,19 @@ exports.createByFacebook = function(user, cb) {
     }
   );
 }
+/**
+ * Update a user using gh
+ * @param token
+ * @param cred
+ * @param cb
+ */
+exports.updateGhToken = function(token, cred, cb) {
+	User.findOne({_id: cred._id}, function(err, user) {
+		var updateUser = user.toObject();
+		updateUser.githubToken = token.token;
+
+		User.update({_id: cred._id}, updateUser, function (err) {
+			cb(err, user);
+		});
+	});
+};

@@ -1,5 +1,3 @@
-var AuditEvent = require("./../model/document/auditEvent");
-
 // Declare internals
 var internals = {};
 
